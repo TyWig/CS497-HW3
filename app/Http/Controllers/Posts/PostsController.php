@@ -38,6 +38,9 @@ class PostsController extends Controller
 
     public function put(Request $request, Post $post)
     {
+        $this->validate($request, [
+            'title' => 'required'
+        ]);
 
         $post->create([
             'user_id' => auth()->user()->id,
@@ -50,12 +53,17 @@ class PostsController extends Controller
 
     public function edit($id)
     {
+
         $post = Post::findOrFail($id);
         return view('posts.edit')->with('post', $post);
     }
 
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'title' => 'required'
+        ]);
+
         $post = Post::findOrFail($id);
         $post->fill([
             'title' => $request->input('title'),

@@ -45,7 +45,7 @@
                                 </button>
                             </form>
                         </div>
-                        <p style="font-size: small; vertical-align: bottom" class="pull-right">Created {{date_format($post->created_at, 'g:ia \o\n l jS F Y')}}</p>
+                        <p style="font-size: small; vertical-align: bottom" class="pull-right">Created {{date_format(($post->created_at->setTimeZone(new DateTimeZone('America/Denver'))), 'g:ia \o\n l jS F Y')}}</p>
                     </div>
                 </div>
             </div>

@@ -11,14 +11,33 @@
         });
         $('#summernote').summernote('pasteHTML', '{!! $post->content !!}');
         $('#postTitle').val('{!! $post->title !!}');
+        $('#postTitle').keyup(validateTitle);
       });
 
-      function submit() {
+      function validateTitle() {
         let title = $('#postTitle').val();
-        let markupStr =  $('#summernote').summernote('code');
-        $('#title').val(title);
-        $('#content').val(markupStr);
-        $('#hiddenform').submit()
+        let element = $('#titleHelper');
+        let container = $('#titleContainer');
+
+        if(title.length === 0) {
+          element.show();
+          container.addClass('has-error');
+          return false;
+        } else {
+          element.hide();
+          container.removeClass('has-error');
+          return true;
+        }
+      }
+
+      function submit() {
+        if (validateTitle()) {
+          let title = $('#postTitle').val();
+          let markupStr = $('#summernote').summernote('code');
+          $('#title').val(title);
+          $('#content').val(markupStr);
+          $('#hiddenform').submit();
+        }
       }
     </script>
 @stop
@@ -30,6 +49,9 @@
         <div class="form-group">
             <label for="usr">Title:</label>
             <input type="text" class="form-control" id="postTitle" placeholder="Blog title...">
+            <span id="titleHelper" class="help-block" style="display: none; color: red">
+                <strong>A title is required</strong>
+            </span>
         </div>
         <div class="form-group">
             <label for="text">Content:</label>
