@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => 'Create new post'])
+@extends('layouts.app', ['title' => 'Edit post'])
 
 @section('scripts')
     <script>
